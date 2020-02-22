@@ -1,0 +1,212 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Load testing</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/mindgrub.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class='footer'>
+				<div class="left">
+					<a href="https://www.mindgrub.com"><img src="assets/mindgrub-logo.png"/></a>
+				</div>
+				<div class="right">
+					<span><a href="https://aczietlow.github.io/PredictionIO-presentation/">Locustio</a></span>
+					<span><a href="https://twitter.com/aczietlow">@aczietlow</a></span>
+					<span><a href="#">@keso</a></span>
+				</div>
+			</div>
+			<div class="slides">
+				<!-- Introduction -->
+				<section>
+					<section>
+						<h2>Avoiding launch fails with load testing</h2>
+						<h5>Locustio</h5>
+					</section>
+					<section>
+						<img width="30%" data-src="assets/kaylan_w.png" alt="Mug shot of Kaylan" />
+						<h2><a href="https://twitter.com/keso">@keso</a></h2>
+						<span>Senior Customer Success Manager, <a href="https://pantheon.io">Pantheon</a></span>
+					</section>
+					<section>
+						<h2>Pantheon</h2>
+						<p>We do Webops</p>
+						<h6 class="fragment blink">Now Hiring</h6>
+						<div>
+							<img width="40%" data-src="assets/rokisky-pong.png" alt="Pantheon"/>
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>kaylan slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<img data-src="assets/chris_z.jpg" alt="Mug shot of Chris Z" />
+						<h2><a href="https://twitter.com/aczietlow">@aczietlow</a></h2>
+						<span>Engineer Manager, <a href="https://www.mindgrub.com">Mindgrub</a></span>
+					</section>
+					<section>
+						<h2>Mindgrub</h2>
+						<p>Technical Agency; Drupal and Beyond</p>
+						<h6 class="fragment blink">Now Hiring</h6>
+						<div>
+							<img width="40%" data-src="assets/rokisky-pong.png" alt="Mindgrub office and culture ping pong table"/>
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>web</li>
+								<ul>
+									<li>Drupal</li>
+									<li>Wordpress</li>
+									<li>React, angular, & node</li>
+									<li>angular</li>
+								</ul>
+								<li>mobile</li>
+								<ul>
+									<li>Android, iOS</li>
+									<li></li>
+								</ul>
+								<li>other</li>
+								<ul>
+									<li>Written firmware</li>
+									<li>slack bots</li>
+									<li>Building a robot to deliver snax</li>
+								</ul>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+				<!-- Foundation of WTF we're doing here -->
+				<section>
+					<section>
+						<h2>load testing</h2>
+						<h5 class="fragment">But why though</h5>
+						<img class="fragment" data-src="assets/but_why.gif" alt="but why though" />
+					</section>
+					<section>
+						<h2>Lexicon</h2>
+						<dl>
+							<dt class="fragment">performance testing</dt>
+							<dd class="fragment">determine resource usage, scability, and reliability under different given circumstances</dd>
+							<dt class="fragment">load testing</dt>
+							<dd class="fragment">Continously increase the stress on the system until failure to learn the limits</dd>
+							<dt class="fragment">stress testing</dt>
+							<dd class="fragment">Place the system under stress, and begin overloading system components</dd>
+						</dl>
+						<aside class="notes">
+							<ul>
+								<li>Chris Slide</li>
+								<li>Talk about what each is used to determine</li>
+								<li>The value derived from such</li>
+								<li>Examples of usages</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+				<!-- Story time -->
+				<section>
+					<section>
+						<h2>Healthcare.gov</h2>
+						<img class="fragment" data-src="assets/healthcare-gov.png" alt="but why though" />
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Florida bridge collapse</h2>
+						<img class="fragment" data-src="assets/florida-bridge.png" alt="but why though" />
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Need another example of utter failure</h2>
+						<ul>
+							<li>ideas</li>
+							<li>cocacola super ad failure</li>
+							<li>UFC</li>
+							<li>The Darkweb?</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Why is Locust</h2>
+						<ul>
+							<li>Performance testing before:</li>
+							<li>
+								<ul>
+									<li>new launches</li>
+									<li>feature release</li>
+									<li>bug fixes</li>
+									<li>major marketing event</li>
+									<li>part of CI</li>
+								</ul>
+							</li>
+							<li>Debugging problems that occur only under load</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- Live demo time -->
+				<section>
+					<section>
+						<h2>Live Demo Time?</h2>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/jquery-3.3.1.min.js"></script>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/mindgrub.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+		<script>
+            // displayed upon load, hides when slide changes
+            Reveal.addEventListener('slidechanged', function(event) {
+                document.querySelector('.reveal .footer').style.display = 'none';
+            });
+		</script>
+	</body>
+</html>
