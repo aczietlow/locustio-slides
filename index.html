@@ -127,7 +127,7 @@
 				<section>
 					<section>
 						<h2>Healthcare.gov</h2>
-						<img class="fragment" data-src="assets/healthcare-gov.png" alt="but why though" />
+						<img class="fragment" width="70%" data-src="assets/healthcare-gov.png" alt="but why though" />
 						<aside class="notes">
 							<ul>
 								<li>Kaylan Slide</li>
@@ -135,21 +135,12 @@
 						</aside>
 					</section>
 					<section>
-						<h2>Florida bridge collapse</h2>
-						<img class="fragment" data-src="assets/florida-bridge.png" alt="but why though" />
-						<aside class="notes">
-							<ul>
-								<li>Kaylan Slide</li>
-							</ul>
-						</aside>
-					</section>
-					<section>
-						<h2>Need another example of utter failure</h2>
+						<h2>Healthcare.gov</h2>
 						<ul>
-							<li>ideas</li>
-							<li>cocacola super ad failure</li>
-							<li>UFC</li>
-							<li>The Darkweb?</li>
+							<li>250,000 users caused downtime within 2 hours of launch</li>
+							<li>Site could handle even fewer authenticated users</li>
+							<li>6 users were able to submit applications on first day</li>
+							<li>By Dec 1, site could handle 35k concurrent users</li>
 						</ul>
 						<aside class="notes">
 							<ul>
@@ -158,7 +149,119 @@
 						</aside>
 					</section>
 					<section>
-						<h2>Why is Locust</h2>
+						<h2>Healthcare.gov</h2>
+						<p>Launch day was mandated in ACA, no wiggle room.
+
+							Site launched:</p>
+						<ul>
+							<li>not feature complete</li>
+							<li>minimal testing</li>
+							<li>minimal troubleshooting</li>
+							<li>with no regard to results of testing and troubleshooting</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Salesforce + Drupal connection under load</h2>
+						<p>Background:</p>
+						<ul>
+							<li>Organization funded by donations</li>
+							<li>Authenticated users on site</li>
+							<li>User data retrieved from Salesforce on login</li>
+							<li>User data not updating correctly on live site</li>
+							<li>Difficult to debug outside of Prod</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>Salesforce + Drupal connection under load</h2>
+						<p>How did we fix it?</p>
+						<ul>
+							<li>Use load test framework to put cloned site under load</li>
+							<li>Mimic users logging in and out of system</li>
+							<li>Watch in New Relic and with xdebug in real time</li>
+							<li>Watch in New Relic and with xdebug in real time</li>
+							<li>Ability to independently test theories and potential fixes </li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>GDPR Pop-ups and Caching</h2>
+						<p>Background:</p>
+						<ul>
+							<li>International site</li>
+							<li>~50k Anonymous users per day</li>
+							<li>Minimal content updates</li>
+							<li>Primarily served from CDN</li>
+							<li>Undergoing a relaunch from D7 to D8 </li>
+							<li>must be GDPR compliant, added cookie notification pop-up to website</li>
+							<li>Load test planned ~1 week before launch</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2>GDPR Pop-ups and Caching</h2>
+						<p>Load test results indicated very poor site performance.</p>
+						<ul>
+							<li>Cache hit rate of less than 5% </li>
+							<li>Site running out of PHP workers </li>
+							<li>mySQL layer showing distress in New Relic</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+					<section>
+						<h2></h2>
+						<p>So what happened?</p>
+						<ul>
+							<li>Developers identified that GDPR pop-up was interfering with proper site caching </li>
+							<li>Were able to implement code fixes in the week before launch</li>
+							<li>Ran a shortened Load Test to verify fix before launch</li>
+						</ul>
+						<aside class="notes">
+							<ul>
+								<li>Kaylan Slide</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>When to load test</h2>
+						<ul>
+							<li>
+								<ul>
+									<li>new launches</li>
+									<li>feature release</li>
+									<li>bug fixes</li>
+									<li>major marketing event</li>
+									<li>part of CI</li>
+								</ul>
+							</li>
+							<li>Debugging problems that occur only under load</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Testing plan</h2>
 						<ul>
 							<li>Performance testing before:</li>
 							<li>
@@ -172,6 +275,9 @@
 							</li>
 							<li>Debugging problems that occur only under load</li>
 						</ul>
+					</section>
+					<section>
+						<h2>Why locust over others</h2>
 					</section>
 				</section>
 
@@ -199,7 +305,10 @@
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+				],
+				slideNumber: true,
+				hash: true,
+
 			});
 		</script>
 		<script>
