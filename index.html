@@ -30,7 +30,7 @@
 				<div class="right">
 					<span><a href="https://aczietlow.github.io/PredictionIO-presentation/">Locustio</a></span>
 					<span><a href="https://twitter.com/aczietlow">@aczietlow</a></span>
-					<span><a href="#">@keso</a></span>
+					<span><a href="https://twitter.com/kesoleil">@kesoleil</a></span>
 				</div>
 			</div>
 			<div class="slides">
@@ -42,16 +42,11 @@
 					</section>
 					<section>
 						<img width="30%" data-src="assets/kaylan_w.png" alt="Mug shot of Kaylan" />
-						<h2><a href="https://twitter.com/keso">@keso</a></h2>
+						<h2><a href="https://twitter.com/kesoleil">@kesoleil</a></h2>
 						<span>Senior Customer Success Manager, <a href="https://pantheon.io">Pantheon</a></span>
 					</section>
-					<section>
-						<h2>Pantheon</h2>
-						<p>We do Webops</p>
-						<h6 class="fragment blink">Now Hiring</h6>
-						<div>
-							<img width="40%" data-src="assets/rokisky-pong.png" alt="Pantheon"/>
-						</div>
+					<section data-background="assets/pantheon_background.png">
+						<h6 style="color:white; padding-left:10%; padding-top: 45%;"><a href="https://grnh.se/75d2a6781">Now Hiring</a></h6>
 						<aside class="notes">
 							<ul>
 								<li>kaylan slide</li>
@@ -187,7 +182,6 @@ Site launched:</p>
 							<li>Use load test framework to put cloned site under load</li>
 							<li>Mimic users logging in and out of system</li>
 							<li>Watch in New Relic and with xdebug in real time</li>
-							<li>Watch in New Relic and with xdebug in real time</li>
 							<li>Ability to independently test theories and potential fixes </li>
 						</ul>
 						<aside class="notes">
@@ -247,32 +241,20 @@ Site launched:</p>
 					<section>
 						<h2>When to load test</h2>
 						<ul>
-							<li>
-								<ul>
-									<li>new launches</li>
-									<li>feature release</li>
-									<li>bug fixes</li>
-									<li>major marketing event</li>
-									<li>part of CI</li>
-								</ul>
-							</li>
-							<li>Debugging problems that occur only under load</li>
+							<li class="fragment">new launches</li>
+							<li class="fragment">feature release</li>
+							<li class="fragment">bug fixes</li>
+							<li class="fragment">major marketing event</li>
+							<li class="fragment">part of CI</li>
+							<li class="fragment">Debugging problems that occur only under load</li>
 						</ul>
+
 					</section>
 					<section>
 						<h2>Testing plan</h2>
 						<ul>
-							<li>Performance testing before:</li>
-							<li>
-								<ul>
-									<li>new launches</li>
-									<li>feature release</li>
-									<li>bug fixes</li>
-									<li>major marketing event</li>
-									<li>part of CI</li>
-								</ul>
-							</li>
-							<li>Debugging problems that occur only under load</li>
+							<li class="fragment">Have a plan</li>
+							<li class="fragment">execute it!</li>
 						</ul>
 					</section>
 					<section>
@@ -283,6 +265,7 @@ Site launched:</p>
 							<li class="fragment">Concurrency ++</li>
 							<li class="fragment">Loathe yet another DSL in XML</li>
 							<li class="fragment">We like python</li>
+							<li class="fragment">Open source</li>
 						</ul>
 					</section>
 				</section>
@@ -291,6 +274,111 @@ Site launched:</p>
 				<section>
 					<section>
 						<h2>Live Demo Time?</h2>
+					</section>
+				</section>
+
+				<!-- Sandwich boi project -->
+				<section>
+					<section>
+						<h2>Life saver</h2>
+						<ul>
+							<li class="fragment">Drupal site</li>
+							<li class="fragment">catalogs large data collections</li>
+							<li class="fragment">Paid subscription service</li>
+							<li class="fragment">4 years old</li>
+							<li class="fragment">moderate success and growth</li>
+						</ul>
+					</section>
+					<section>
+						<img class="fragment" data-src="assets/dwp-rds-spike.png" alt="rds cpu" />
+						<ul class="fragment">
+							<li>db.r4.large instances</li>
+							<li>2 cpu, 16 GB ram</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Panic</h2>
+						<ul>
+							<li class="fragment">more app containers?</li>
+							<li class="fragment">Okay all of the app containers, NOW</li>
+							<li class="fragment">more database power</li>
+							<li class="fragment">Go from db.r4.large instances, to db.r4.8xlarge</li>
+							<li class="fragment">16 core, 244 Mem</li>
+						</ul>
+					</section>
+					<section>
+						<pre><code data-trim contenteditable>
+SELECT node.nid                                                  AS nid,
+       node.title                                                AS node_title,
+       ships_cargo_counts_node.percentage                    AS ships_cargo_counts_node_percentage,
+       ships_cargo_counts_node.count                         AS ships_cargo_counts_node_count,
+       ships_cargo_counts_node.ships_limit                AS ships_cargo_counts_node_ships_limit,
+       food_logs_node.percentage                          AS food_logs_node_percentage,
+       food_logs_node.count                               AS food_logs_node_count,
+       food_logs_node.ships_limit                      AS food_logs_node_ships_limit,
+       ships_subscription_counts_node.total_subscriptions     AS ships_subscription_counts_node_total_subscriptions,
+       ships_subscription_counts_node.plus_subscriptions      AS ships_subscription_counts_node_plus_subscriptions,
+       ships_subscription_counts_node.executive_subscriptions AS ships_subscription_counts_node_executive_subscriptions,
+       ships_subscription_counts_node.family_subscriptions    AS ships_subscription_counts_node_family_subscriptions
+FROM node node
+       LEFT JOIN (SELECT r.nid                                                                     AS nid,
+                         limit_table.field_number_cargos_allowed_value                            AS ships_limit,
+                         COUNT(s.id)                                                               AS count,
+                         CASE
+                           WHEN limit_table.field_number_cargos_allowed_value IS NULL OR
+                                limit_table.field_number_cargos_allowed_value = 0 THEN 0
+                           ELSE (COUNT(s.id) / limit_table.field_number_cargos_allowed_value) END AS percentage
+                  FROM node r
+                         LEFT OUTER JOIN og_membership g
+                                         ON g.gid = r.nid AND g.group_type = 'node' AND g.entity_type = 'node'
+                         LEFT OUTER JOIN node o ON o.nid = g.etid
+                         LEFT OUTER JOIN field_data_field_email_cargos e
+                                         ON e.entity_type = 'node' AND e.entity_id = o.nid
+                         LEFT OUTER JOIN eck_search_record s ON s.id = e.field_email_cargos_target_id
+                         LEFT OUTER JOIN field_data_field_number_cargos_allowed limit_table
+                                         ON limit_table.entity_type = 'node' AND limit_table.entity_id = r.nid
+                  WHERE (r.type = 'ships')
+                  GROUP BY r.nid) ships_cargo_counts_node ON node.nid = ships_cargo_counts_node.nid
+       LEFT JOIN (SELECT v_count.ships                                                 AS ships,
+                         limit_table.field_live_data_search_limit_value                   AS ships_limit,
+                         CASE WHEN v_date.date != '05/2019' THEN 0 ELSE v_count.count END AS count,
+                         CASE
+                           WHEN limit_table.field_live_data_search_limit_value IS NULL OR
+                                limit_table.field_live_data_search_limit_value = 0 THEN 0
+                           ELSE (CASE WHEN v_date.date != '05/2019' THEN 0 ELSE v_count.count END /
+                                 limit_table.field_live_data_search_limit_value) END      AS percentage
+                  FROM (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(v_count.name, '_', 5), '_', -1)  AS ships,
+                               SUBSTRING_INDEX(SUBSTRING_INDEX(v_count.value, ';', 1), ':', -1) AS count
+                        FROM variable v_count
+                        WHERE (v_count.name LIKE 'banana_boat_exteranl_search_ships_%_count' ESCAPE '\\')) v_count
+                         INNER JOIN (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(v_date.name, '_', 5), '_', -1)  AS ships,
+                                            SUBSTRING_INDEX(SUBSTRING_INDEX(v_date.value, '"', 2), '"', -1) AS date
+                                     FROM variable v_date
+                                     WHERE (v_date.name LIKE 'banana_boat_exteranl_search_ships_%_date' ESCAPE '\\')) v_date
+                                    ON v_count.ships = v_date.ships
+                         LEFT OUTER JOIN field_data_field_live_data_search_limit limit_table
+                                         ON limit_table.entity_type = 'node' AND
+                                            limit_table.entity_id = v_count.ships) food_logs_node
+                 ON node.nid = food_logs_node.ships
+       LEFT JOIN (SELECT d.*, r.nid AS nid
+                  FROM node r
+                         INNER JOIN (SELECT d.ships AS ships, MAX(d.id) AS id
+                                     FROM ships_data d
+                                     GROUP BY d.ships) rd ON r.nid = rd.ships
+                         INNER JOIN ships_data d ON d.id = rd.id
+                  WHERE (r.type = 'ships')) ships_subscription_counts_node
+                 ON node.nid = ships_subscription_counts_node.nid
+WHERE (((node.status = '1') AND (node.type IN ('ships'))))
+ORDER BY node_title ASC
+LIMIT 25 OFFSET 0;
+						</code>
+						</pre>
+					</section>
+					<section>
+						<h2>Resolution</h2>
+						<ul>
+							<li>tl;dr - we were scanning a table that now had 6.8 million rows x * y * z times everytime a user hit their homepage.</li>
+						</ul>
 					</section>
 				</section>
 			</div>
